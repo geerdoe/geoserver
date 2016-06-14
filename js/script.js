@@ -38,14 +38,18 @@ $(function() {
 	stackLayers();
 	//map.on('overlayadd', restackLayers);
 	
-	var rootUrl = 'http://192.168.5.145:8082/geoserver/Renabe/wfs';
+	//var rootUrl = 'http://192.168.5.145:8082/geoserver/Renabe/wfs'; //PREPROD
+	//var rootUrl = 'http://192.168.55.5:8082/geoserver/Renabe/wfs'; //TESTING
+	var rootUrl = 'http://192.168.5.144:8082/geoserver/Renabe/wfs'; //PROD
+	
 	//http://www.yourgeoserver.com/geoserver/myws/ows?SERVICE=WFS&REQUEST=GetCapabilities
 
 	var defaultParameters = {
 		    service: 'WFS',
 		    version: '1.0.0',
 		    request: 'GetFeature',
-		    featureId: 'Renabe:GeoDato_Poligono',
+		    //featureId: 'Renabe:	GeoDato_Poligono_CIE_DIVISION', prod
+		    typeName: 'GeoDato_Poligono_CIE_DIVISION',
 		    maxFeatures: 5,
 		    outputFormat: 'text/javascript',
 		    format_options: 'callback: getJson',
@@ -56,6 +60,7 @@ $(function() {
 	var parameters = L.Util.extend(defaultParameters);
 	//console.log(rootUrl + L.Util.getParamString(parameters));
 	$.ajax({
+		method: "GET",
 	    jsonp : false,
 	    url: rootUrl + L.Util.getParamString(parameters),
 	    dataType: 'jsonp',
